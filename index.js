@@ -1,7 +1,10 @@
+// Imports fs, inquirer, Circle, Square, and Triangle modules.
 const inquirer = require('inquirer');
 const fs = require('fs');
 const {Circle, Triangle, Square} = require('./lib/shapes.js')
 
+
+// Creates a Svg class that has a constructor with methods for rendering and setting the text and shape elements in the SVG input.
 class Svg {
     constructor(){
         this.textEL = ""
@@ -24,23 +27,8 @@ class Svg {
     }
 }
 
-
+// Creates an array of questions. Each question is an object that sets the properties of TEXT, TEXT COLOR, SHAPE COLOR, and Shape. 
     const questions = [
-        {
-            type: 'input',
-            message: "TEXT: Please enter up to (3) characters",
-            name: "text"
-        },
-        {
-            type: 'input',
-            message: "TEXT COLOR: Please enter a color keyword OR a hexadecimal number",
-            name: "textColor"
-        },
-        {
-            type: 'input',
-            message: "SHAPE COLOR: Please enter a color keyword OR a hexadecimal number",
-            name: "shapeColor"
-        },
         {
             type: 'list',
             message: "SHAPE: Please choose a shape",
@@ -51,9 +39,24 @@ class Svg {
                 "Square"
             ]
         },
+        {
+            type: 'input',
+            message: "SHAPE COLOR: Please enter a color keyword OR a hexadecimal number",
+            name: "shapeColor"
+        },
+        {
+            type: 'input',
+            message: "TEXT: Please enter up to (3) characters",
+            name: "text"
+        },
+        {
+            type: 'input',
+            message: "TEXT COLOR: Please enter a color keyword OR a hexadecimal number",
+            name: "textColor"
+        },
     ];
     
-
+//function that writes data to file 
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, (err) =>
     err ? console.error(err) : console.log('Generated logo.svg!'))
@@ -63,7 +66,7 @@ function init() {
     let svgInput = "";
     let file = "logo.svg";
 
-    
+    //Prompts user for answers and waits untill this action is done
     const answers = inquirer.prompt(questions)
     .then((answers) => {
     console.log(answers)
@@ -80,6 +83,7 @@ function init() {
     let shape_Color = answers.shapeColor;
     let inputShape = answers.shape;
 
+    //creates new class modules depending on shape answer
     let desiredShape;
     if (inputShape === "Circle") {
         desiredShape = new Circle();
@@ -94,6 +98,7 @@ function init() {
 
     desiredShape.setColor(shape_Color)
 
+    // Creates a new Svg instance and adds the shape and text elements to it
     let svg = new Svg();
     svg.setTextEl(inputText, textColor);
     svg.setColorEl(desiredShape);
@@ -102,5 +107,5 @@ function init() {
     writeToFile(file, svgInput)
     })
 }
-
+//starts initialization.
 init();
