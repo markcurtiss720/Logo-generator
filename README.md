@@ -25,7 +25,7 @@ Open the repository in any source code editor.
 ## Usage
 
 follow this link for a video tutorial
-https://watch.screencastify.com/v/zPFuh9Y1xrcj5sppPNMr
+https://watch.screencastify.com/v/jkHwKLF1lS0v7SAjLaZG
     
 
 ## Credits
